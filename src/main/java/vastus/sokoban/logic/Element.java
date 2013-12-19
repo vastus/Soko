@@ -81,6 +81,15 @@ public abstract class Element {
         this.position = position;
     }
 
+    /**
+     * Builds an element from given type and x and y-value.
+     * 
+     * @param type elements type
+     * @param x elements initial x-value in position
+     * @param y elements initial x-value in position
+     * @return element of given type with position
+     * @throws Exception 
+     */
     public static Element build(char type, int x, int y) throws Exception {
         Point position = new Point(x, y);
         switch (type) {
