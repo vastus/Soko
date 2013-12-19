@@ -25,7 +25,9 @@ public class ElementTest {
 
     @Test
     public void shouldGetType() {
-        assertEquals('#', new Wall(new Point(0, 0)).getType());
+        Point position = new Point(0, 0);
+        assertEquals('#', new Wall(position).getType());
+        assertEquals('+', new Storage(position).getType());
     }
 
     @Test
