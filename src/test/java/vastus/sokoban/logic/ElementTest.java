@@ -28,6 +28,7 @@ public class ElementTest {
         Point position = new Point(0, 0);
         assertEquals('#', new Wall(position).getType());
         assertEquals('+', new Storage(position).getType());
+        assertEquals('@', new Player(position).getType());
     }
 
     @Test
