@@ -81,4 +81,22 @@ public abstract class Element {
         this.position = position;
     }
 
+    public static Element build(char type, int x, int y) throws Exception {
+        Point position = new Point(x, y);
+        switch (type) {
+        case Element.PLAYER:
+            return new Player(position);
+        case Element.BOX:
+            return new Box(position);
+        case Element.STORAGE:
+            return new Storage(position);
+        case Element.WALL:
+            return new Wall(position);
+        case Element.FLOOR:
+            return new Floor(position);
+        }
+
+        throw new Exception(String.format("Type %c not found.", type));
+    }
+
 }
