@@ -7,6 +7,11 @@ package vastus.sokoban.logic;
  */
 public class Player extends Movable {
 
+    /**
+     * Constructor for player.
+     * 
+     * @param position initial position of player
+     */
     public Player(Point position) {
         super(Element.PLAYER, position);
     }
