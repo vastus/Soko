@@ -7,6 +7,11 @@ package vastus.sokoban.logic;
  */
 public class Wall extends Element{
 
+    /**
+     * Constructor for wall.
+     *
+     * @param position initial position of the wall
+     */
     public Wall(Point position) {
         super(Element.WALL, position);
     }
