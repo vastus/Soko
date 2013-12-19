@@ -46,4 +46,41 @@ public class Point {
         return y;
     }
 
+    /**
+     * Hash code for point.
+     * 
+     * @return unique hash code based on x and y-value
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.x;
+        hash = 97 * hash + this.y;
+        return hash;
+    }
+
+    /**
+     * Checks if x and y-values match with this.
+     * 
+     * @param obj comparable object
+     * @return true if x and y-values are the same
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Point other = (Point) obj;
+        if (this.x != other.x) {
+            return false;
+        }
+        if (this.y != other.y) {
+            return false;
+        }
+        return true;
+    }
+
 }
