@@ -53,10 +53,7 @@ public class Point {
      */
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.x;
-        hash = 97 * hash + this.y;
-        return hash;
+        return 97 * (97 * 3 + x) + y;
     }
 
     /**
