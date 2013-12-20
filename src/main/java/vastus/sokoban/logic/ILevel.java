@@ -23,4 +23,12 @@ public interface ILevel {
      */
     boolean outOfBounds(Point point);
 
+    /**
+     * Getter for player in level.
+     *
+     * @return player
+     * @throws Exception when player not found
+     */
+    Player getPlayer() throws Exception;
+
 }
