@@ -94,6 +94,22 @@ public class Level implements ILevel {
     }
 
     /**
+     * Getter for player in level (elements).
+     *
+     * @return found player
+     * @throws Exception when player not found
+     */
+    @Override
+    public Player getPlayer() throws Exception {
+        for (Element element : elements.values()) {
+            if (element.getType() == Element.PLAYER)
+                return (Player) element;
+        }
+
+        throw new Exception("Player not found.");
+    }
+
+    /**
      * Tells if given point is out of bounds.
      * 
      * @param point point to check

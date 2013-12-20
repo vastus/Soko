@@ -65,4 +65,16 @@ public class ILevelTest {
         assertFalse(level.outOfBounds(new Point(3, 1)));
     }
 
+    @Test
+    public void getPlayerShouldReturnPlayerInLevel() throws Exception {
+        Level level = Level.build("+O@.");
+        assertEquals(Element.PLAYER, level.getPlayer().getType());
+    }
+
+    @Test(expected=Exception.class)
+    public void getPlayerShouldThrowExceptionWhenNotFound() throws Exception {
+        Level level = Level.build("+O..");
+        level.getPlayer();
+    }
+
 }
