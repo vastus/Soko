@@ -27,7 +27,10 @@ public class Level {
     private final Map<Point, Element> elements;
 
     /**
-     * TODO: ADD CONSTRUCTRORO!RO!O!OR!OR!R!OR!OR!OR!OR!O!R
+     * Dummy constructor for tests.
+     * 
+     * @param width width of level
+     * @param height height of level
      */
     public Level(int width, int height) throws Exception {
         checkDimensions(width, height);
@@ -36,6 +39,14 @@ public class Level {
         this.elements = null;
     }
 
+    /**
+     * Constructor for level.
+     * 
+     * @param width width of level
+     * @param height height of level
+     * @param elements  elements of level
+     * @throws Exception 
+     */
     public Level(int width, int height, Map<Point, Element> elements)
             throws Exception {
         checkDimensions(width, height);
@@ -71,12 +82,26 @@ public class Level {
         return elements;
     }
 
+    /**
+     * Builds a new level from give string.
+     * 
+     * @param s string representation of level
+     * @return new level
+     * @throws Exception 
+     */
     protected static Level build(String s) throws Exception {
         String[] rows = Level.buildRows(s);
         Map<Point, Element> elems = Level.buildElements(rows);
         return new Level(rows[0].length(), rows.length, elems);
     }
 
+    /**
+     * Builds elements from given table of strings.
+     * 
+     * @param rows table of strings constructed from level string
+     * @return a map of elements
+     * @throws Exception 
+     */
     protected static Map<Point, Element> buildElements(String[] rows) throws Exception {
         Map<Point, Element> elements = new HashMap<>();
         for (int y = 0; y < rows.length; y++) {
@@ -89,6 +114,14 @@ public class Level {
         return elements;
     }
 
+    /**
+     * Builds a table of strings from given string and
+     * checks that level string is in valid format.
+     * 
+     * @param s level string
+     * @return table of strings
+     * @throws Exception 
+     */
     protected static String[] buildRows(String s) throws Exception {
         s = s.trim();
         if (s == null || s.length() < 3)
