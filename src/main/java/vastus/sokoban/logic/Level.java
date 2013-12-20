@@ -116,6 +116,9 @@ public class Level implements ILevel {
      * @throws Exception 
      */
     protected static Level build(String s) throws Exception {
+        if (!s.contains("@"))
+            throw new Exception("No player in string.");
+
         String[] rows = Level.buildRows(s);
         Map<Point, Element> elems = Level.buildElements(rows);
         return new Level(rows[0].length(), rows.length, elems);

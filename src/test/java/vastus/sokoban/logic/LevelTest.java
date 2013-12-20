@@ -198,6 +198,12 @@ public class LevelTest {
     }
 
     @Test(expected=Exception.class)
+    public void buildShouldThrowExceptionWhenNoPlayerInGivenString()
+            throws Exception {
+        Level.build("+O.");
+    }
+
+    @Test(expected=Exception.class)
     public void buildThrowsExceptionWhenGivenStringTooShort() throws Exception {
         Level.build("+O");
     }
