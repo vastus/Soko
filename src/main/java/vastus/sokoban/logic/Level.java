@@ -9,7 +9,7 @@ import java.util.Map;
  * 
  * @author Juho Hautala
  */
-public class Level {
+public class Level implements ILevel {
 
     /**
      * Width of the level.
@@ -80,6 +80,32 @@ public class Level {
      */
     public Map<Point, Element> getElements() {
         return elements;
+    }
+
+    /**
+     * Getter for an element given a position.
+     * 
+     * @param position position to be fetched from.
+     * @return found element at position or null
+     */
+    @Override
+    public Element getElementAt(Point position) {
+        return elements.get(position);
+    }
+
+    /**
+     * Tells if given point is out of bounds.
+     * 
+     * @param point point to check
+     * @return true if point out of bounds false otherwise
+     */
+    @Override
+    public boolean outOfBounds(Point point) {
+        if (point.getX() < 0 || point.getX() >= width ||
+                point.getY() < 0 || point.getY() >= height)
+            return true;
+
+        return false;
     }
 
     /**
