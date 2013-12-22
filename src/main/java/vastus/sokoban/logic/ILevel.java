@@ -16,6 +16,14 @@ public interface ILevel {
     Element getElementAt(Point position);
 
     /**
+     * Get a movable at a specified position.
+     *
+     * @param position position of the movable to be returned
+     * @return movable at position if any, null otherwise
+     */
+    Movable getMovableAt(Point position);
+
+    /**
      * Tells if a specified point is out of bounds.
      * 
      * @param point point to compare

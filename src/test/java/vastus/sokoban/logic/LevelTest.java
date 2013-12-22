@@ -79,7 +79,7 @@ public class LevelTest {
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhenStringLengthIsGTEThreeButWhiteSpace()
+    public void buildRowsThrowsExceptionWhenStringLengthIsGTE3ButWhiteSpace()
             throws Exception {
         Level.buildRows("\n\n\n");
     }
@@ -143,27 +143,32 @@ public class LevelTest {
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhenRowLengthDoesntMatch() throws Exception {
+    public void buildRowsThrowsExceptionWhenRowLengthDoesntMatch()
+            throws Exception {
         Level.buildRows("a\nab");
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhenRowLengthsDontMatchLonger() throws Exception {
+    public void buildRowsThrowsExceptionWhenRowLengthsDontMatchLonger()
+            throws Exception {
         Level.buildRows("a\na\nbb\nbb");
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhenRowLengthsDontMatchShorter() throws Exception {
+    public void buildRowsThrowsExceptionWhenRowLengthsDontMatchShorter()
+            throws Exception {
         Level.buildRows("aa\naa\nb");
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhen2NewlinesInline() throws Exception {
+    public void buildRowsThrowsExceptionWhen2NewlinesInline()
+            throws Exception {
         Level.buildRows("a\n\na");
     }
 
     @Test(expected=Exception.class)
-    public void buildRowsThrowsExceptionWhenMultipleNewlinesInline() throws Exception {
+    public void buildRowsThrowsExceptionWhenMultipleNewlinesInline()
+            throws Exception {
         Level.buildRows("ab\n\n\nab");
     }
 
@@ -224,31 +229,48 @@ public class LevelTest {
     }
 
     @Test
-    public void buildElementsReturnsMatchingMapByTable() throws Exception {
+    public void buildElementsReturnsMatchingElementMapByGivenRows()
+            throws Exception {
         String[] rows = {"+O@", "+O."};
         Map<Point, Element> elements = Level.buildElements(rows);
-        assertEquals(6, elements.size());
+        assertEquals(3, elements.size());
         assertEquals(Element.STORAGE, elements.get(new Point(0, 0)).getType());
-        assertEquals(Element.BOX, elements.get(new Point(1, 0)).getType());
-        assertEquals(Element.PLAYER, elements.get(new Point(2, 0)).getType());
         assertEquals(Element.STORAGE, elements.get(new Point(0, 1)).getType());
-        assertEquals(Element.BOX, elements.get(new Point(1, 1)).getType());
-        assertEquals(elements.toString(), Element.FLOOR, elements.get(new Point(2, 1)).getType());
+        assertEquals(Element.FLOOR, elements.get(new Point(2, 1)).getType());
+    }
+
+    @Test
+    public void buildMovablesReturnsMatchingElementMapByGivenRows()
+            throws Exception {
+        String[] rows = {"+O@", "+O."};
+        Map<Point, Movable> movables = Level.buildMovables(rows);
+        assertEquals(3, movables.size());
+        assertEquals(Element.PLAYER, movables.get(new Point(2, 0)).getType());
+        assertEquals(Element.BOX, movables.get(new Point(1, 0)).getType());
+        assertEquals(Element.BOX, movables.get(new Point(1, 1)).getType());
     }
 
     @Test
     public void buildElementsReturnsMatchingMapByTable2() throws Exception {
         String[] rows = {"++", "OO", "@."};
         Map<Point, Element> elements = Level.buildElements(rows);
-        assertEquals(6, elements.size());
+        assertEquals(3, elements.size());
         assertEquals(Element.STORAGE, elements.get(new Point(0, 0)).getType());
         assertEquals(Element.STORAGE, elements.get(new Point(1, 0)).getType());
-        assertEquals(Element.BOX, elements.get(new Point(0, 1)).getType());
-        assertEquals(Element.BOX, elements.get(new Point(1, 1)).getType());
-        assertEquals(Element.PLAYER, elements.get(new Point(0, 2)).getType());
         assertEquals(Element.FLOOR, elements.get(new Point(1, 2)).getType());
     }
 
+    @Test
+    public void buildMovablesReturnsMatchingMapByTable2() throws Exception {
+        String[] rows = {"++", "OO", "@."};
+        Map<Point, Movable> movables = Level.buildMovables(rows);
+        assertEquals(3, movables.size());
+        assertEquals(Element.BOX, movables.get(new Point(0, 1)).getType());
+        assertEquals(Element.BOX, movables.get(new Point(1, 1)).getType());
+        assertEquals(Element.PLAYER, movables.get(new Point(0, 2)).getType());
+    }
+
+    /*
     @Test
     public void buildShouldReturnNewLevelGivenAString() throws Exception {
         Level level = Level.build("+O@");
@@ -257,5 +279,6 @@ public class LevelTest {
         assertNotNull(level.getElements());
         assertEquals("Level elements size should be 3", 3, level.getElements().size());
     }
+    */
 
 }

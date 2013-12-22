@@ -27,6 +27,11 @@ public class Level implements ILevel {
     private final Map<Point, Element> elements;
 
     /**
+     * Movables in level.
+     */
+    private final Map<Point, Movable> movables;
+
+    /**
      * Dummy constructor for tests.
      * 
      * @param width width of level
@@ -37,6 +42,7 @@ public class Level implements ILevel {
         this.width = width;
         this.height = height;
         this.elements = null;
+        this.movables = null;
     }
 
     /**
@@ -45,14 +51,16 @@ public class Level implements ILevel {
      * @param width width of level
      * @param height height of level
      * @param elements  elements of level
+     * @param movables movables of level
      * @throws Exception 
      */
-    public Level(int width, int height, Map<Point, Element> elements)
+    public Level(int width, int height, Map<Point, Element> elements, Map<Point, Movable> movables)
             throws Exception {
         checkDimensions(width, height);
         this.width = width;
         this.height = height;
         this.elements = elements;
+        this.movables = movables;
     }
 
     /**
@@ -83,7 +91,7 @@ public class Level implements ILevel {
     }
 
     /**
-     * Getter for an element given a position.
+     * Getter for an element in given position.
      * 
      * @param position position to be fetched from.
      * @return found element at position or null
@@ -94,6 +102,17 @@ public class Level implements ILevel {
     }
 
     /**
+     * Getter for a movable in given position.
+     *
+     * @param position position to be fetched from.
+     * @return found movable at position or null
+     */
+    @Override
+    public Movable getMovableAt(Point position) {
+        return movables.get(position);
+    }
+
+    /**
      * Getter for player in level (elements).
      *
      * @return found player
@@ -101,17 +120,16 @@ public class Level implements ILevel {
      */
     @Override
     public Player getPlayer() throws Exception {
-        for (Element element : elements.values()) {
-            if (element.getType() == Element.PLAYER)
-                return (Player) element;
-        }
+        for (Movable movable : movables.values())
+            if (movable.getType() == Element.PLAYER)
+                return (Player) movable;
 
         throw new Exception("Player not found.");
     }
 
     /**
      * Tells if given point is out of bounds.
-     * 
+     *
      * @param point point to check
      * @return true if point out of bounds false otherwise
      */
@@ -136,8 +154,9 @@ public class Level implements ILevel {
             throw new Exception("No player in string.");
 
         String[] rows = Level.buildRows(s);
-        Map<Point, Element> elems = Level.buildElements(rows);
-        return new Level(rows[0].length(), rows.length, elems);
+        Map<Point, Element> elements = Level.buildElements(rows);
+        Map<Point, Movable> movables = Level.buildMovables(rows);
+        return new Level(rows[0].length(), rows.length, elements, movables);
     }
 
     /**
@@ -147,16 +166,31 @@ public class Level implements ILevel {
      * @return a map of elements
      * @throws Exception 
      */
-    protected static Map<Point, Element> buildElements(String[] rows) throws Exception {
+    public static Map<Point, Element> buildElements(String[] rows) throws Exception {
         Map<Point, Element> elements = new HashMap<>();
         for (int y = 0; y < rows.length; y++) {
             for (int x = 0; x < rows[0].length(); x++) {
                 char type = rows[y].charAt(x);
-                elements.put(new Point(x, y), Element.build(type, x, y));
+                if (type == Element.FLOOR || type == Element.STORAGE || type == Element.WALL) {
+                    elements.put(new Point(x, y), Element.build(type, x, y));
+                }
             }
         }
         
         return elements;
+    }
+
+    public static Map<Point, Movable> buildMovables(String[] rows) throws Exception {
+        Map<Point, Movable> movables = new HashMap<>();
+        for (int y = 0; y < rows.length; y++) {
+            for (int x = 0; x < rows[0].length(); x++) {
+                char type = rows[y].charAt(x);
+                if (type == Element.PLAYER || type == Element.BOX) {
+                    movables.put(new Point(x, y), (Movable) Element.build(type, x, y));
+                }
+            }
+        }
+        return movables;
     }
 
     /**
