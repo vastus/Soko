@@ -11,9 +11,6 @@ import org.junit.Ignore;
  * @author Juho Hautala
  */
 public class PointTest {
-    
-    @Before
-    public void setUp() {}
 
     @Test
     public void getXShouldReturnXValue() {
@@ -63,6 +60,11 @@ public class PointTest {
     @Test
     public void twoPointsWithDifferentValuesDontShareHashCode() {
         assertFalse(new Point(32, 48).hashCode() == new Point(0, 21).hashCode());
+    }
+
+    @Test
+    public void shouldPrintItself() {
+        assertEquals("(234, -39)", new Point(234, -39).toString());
     }
 
 }
