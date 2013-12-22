@@ -113,6 +113,16 @@ public class Level implements ILevel {
     }
 
     /**
+     * Set movables key by its position
+     * 
+     * @param movable movable to be set
+     */
+    @Override
+    public void setMovable(Movable movable) {
+        movables.put(movable.getPosition(), movable);
+    }
+
+    /**
      * Getter for player in level (elements).
      *
      * @return found player

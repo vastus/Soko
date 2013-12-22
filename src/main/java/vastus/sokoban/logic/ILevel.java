@@ -24,12 +24,11 @@ public interface ILevel {
     Movable getMovableAt(Point position);
 
     /**
-     * Tells if a specified point is out of bounds.
+     * Set movables key to given movables position.
      * 
-     * @param point point to compare
-     * @return true if point is out of bounds
+     * @param movable movable to be set
      */
-    boolean outOfBounds(Point point);
+    void setMovable(Movable movable);
 
     /**
      * Getter for player in level.
@@ -38,5 +37,13 @@ public interface ILevel {
      * @throws Exception when player not found
      */
     Player getPlayer() throws Exception;
+
+    /**
+     * Tells if a specified point is out of bounds.
+     * 
+     * @param point point to compare
+     * @return true if point is out of bounds
+     */
+    boolean outOfBounds(Point point);
 
 }

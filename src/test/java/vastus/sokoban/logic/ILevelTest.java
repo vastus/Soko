@@ -96,4 +96,15 @@ public class ILevelTest {
         level.getPlayer();
     }
 
+    @Test
+    public void setMovableShouldSetTheKeyToGivenMovablesPosition() throws Exception {
+        Level level = Level.build("@.0+");
+        Movable player = level.getPlayer();
+        assertEquals(new Point(0, 0), player.getPosition());
+        player.setPosition(new Point(1, 0));
+        assertEquals(new Point(1, 0), player.getPosition());
+        level.setMovable(player);
+        assertEquals(player, level.getMovableAt(new Point(1, 0)));
+    }
+
 }
