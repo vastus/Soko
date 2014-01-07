@@ -63,6 +63,25 @@ public class PointTest {
     }
 
     @Test
+    public void shouldCalculateTheDifference() {
+        assertEquals(new Point(0, 0), new Point(1, 1).diff(new Point(1, 1)));
+        assertEquals(new Point(1, 0), new Point(2, 1).diff(new Point(1, 1)));
+        assertEquals(new Point(0, 1), new Point(1, 2).diff(new Point(1, 1)));
+        assertEquals(new Point(-1, 0), new Point(0, 1).diff(new Point(1, 1)));
+        assertEquals(new Point(0, -1), new Point(1, 0).diff(new Point(1, 1)));
+        assertEquals(new Point(1, 1), new Point(1, 1).diff(new Point(0, 0)));
+    }
+
+    @Test
+    public void shouldCalculateTheSum() {
+        assertEquals(new Point(2, 2), new Point(1, 1).sum(new Point(1, 1)));
+        assertEquals(new Point(1, 0), new Point(1, 0).sum(new Point(0, 0)));
+        assertEquals(new Point(1, 1), new Point(1, 0).sum(new Point(0, 1)));
+        assertEquals(new Point(0, 0), new Point(1, 1).sum(new Point(-1, -1)));
+        assertEquals(new Point(0, 0), new Point(-1, -1).sum(new Point(1, 1)));
+    }
+
+    @Test
     public void shouldPrintItself() {
         assertEquals("(234, -39)", new Point(234, -39).toString());
     }

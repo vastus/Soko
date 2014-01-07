@@ -47,6 +47,30 @@ public class Point {
     }
 
     /**
+     * Calculate the difference b/w this and given point.
+     *
+     * @param other point to calculate difference with
+     * @return calculated difference
+     */
+    public Point diff(Point other) {
+        int dx = x - other.getX();
+        int dy = y - other.getY();
+        return new Point(dx, dy);
+    }
+
+    /**
+     * Calculate the sum of this and given point.
+     *
+     * @param other point to calculate sum with
+     * @return calculated sum
+     */
+    public Point sum(Point other) {
+        int dx = x + other.getX();
+        int dy = y + other.getY();
+        return new Point(dx, dy);
+    }
+
+    /**
      * Hash code for point.
      * 
      * @return unique hash code based on x and y-value
