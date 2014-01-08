@@ -1,5 +1,6 @@
 package vastus.sokoban.logic;
 
+import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -229,56 +230,54 @@ public class LevelTest {
     }
 
     @Test
-    public void buildElementsReturnsMatchingElementMapByGivenRows()
+    public void buildElementsReturnsMatchingElementListByGivenRows()
             throws Exception {
         String[] rows = {"+O@", "+O."};
-        Map<Point, Element> elements = Level.buildElements(rows);
+        List<Element> elements = Level.buildElements(rows);
         assertEquals(3, elements.size());
-        assertEquals(Element.STORAGE, elements.get(new Point(0, 0)).getType());
-        assertEquals(Element.STORAGE, elements.get(new Point(0, 1)).getType());
-        assertEquals(Element.FLOOR, elements.get(new Point(2, 1)).getType());
+        assertEquals(Element.STORAGE, elements.get(0).getType());
+        assertEquals(Element.STORAGE, elements.get(1).getType());
+        assertEquals(Element.FLOOR, elements.get(2).getType());
     }
 
     @Test
-    public void buildMovablesReturnsMatchingElementMapByGivenRows()
+    public void buildMovablesReturnsMatchingElementListByGivenRows()
             throws Exception {
         String[] rows = {"+O@", "+O."};
-        Map<Point, Movable> movables = Level.buildMovables(rows);
+        List<Movable> movables = Level.buildMovables(rows);
         assertEquals(3, movables.size());
-        assertEquals(Element.PLAYER, movables.get(new Point(2, 0)).getType());
-        assertEquals(Element.BOX, movables.get(new Point(1, 0)).getType());
-        assertEquals(Element.BOX, movables.get(new Point(1, 1)).getType());
+        assertEquals(Element.BOX, movables.get(0).getType());
+        assertEquals(Element.PLAYER, movables.get(1).getType());
+        assertEquals(Element.BOX, movables.get(2).getType());
     }
 
     @Test
-    public void buildElementsReturnsMatchingMapByTable2() throws Exception {
+    public void buildElementsReturnsMatchingListByTable2() throws Exception {
         String[] rows = {"++", "OO", "@."};
-        Map<Point, Element> elements = Level.buildElements(rows);
+        List<Element> elements = Level.buildElements(rows);
         assertEquals(3, elements.size());
-        assertEquals(Element.STORAGE, elements.get(new Point(0, 0)).getType());
-        assertEquals(Element.STORAGE, elements.get(new Point(1, 0)).getType());
-        assertEquals(Element.FLOOR, elements.get(new Point(1, 2)).getType());
+        assertEquals(Element.STORAGE, elements.get(0).getType());
+        assertEquals(Element.STORAGE, elements.get(1).getType());
+        assertEquals(Element.FLOOR, elements.get(2).getType());
     }
 
     @Test
-    public void buildMovablesReturnsMatchingMapByTable2() throws Exception {
+    public void buildMovablesReturnsMatchingListByTable2() throws Exception {
         String[] rows = {"++", "OO", "@."};
-        Map<Point, Movable> movables = Level.buildMovables(rows);
+        List<Movable> movables = Level.buildMovables(rows);
         assertEquals(3, movables.size());
-        assertEquals(Element.BOX, movables.get(new Point(0, 1)).getType());
-        assertEquals(Element.BOX, movables.get(new Point(1, 1)).getType());
-        assertEquals(Element.PLAYER, movables.get(new Point(0, 2)).getType());
+        assertEquals(Element.BOX, movables.get(0).getType());
+        assertEquals(Element.BOX, movables.get(1).getType());
+        assertEquals(Element.PLAYER, movables.get(2).getType());
     }
 
-    /*
     @Test
     public void buildShouldReturnNewLevelGivenAString() throws Exception {
         Level level = Level.build("+O@");
         assertEquals(3, level.getWidth());
         assertEquals(1, level.getHeight());
         assertNotNull(level.getElements());
-        assertEquals("Level elements size should be 3", 3, level.getElements().size());
+        assertEquals(1, level.getElements().size());
     }
-    */
 
 }
