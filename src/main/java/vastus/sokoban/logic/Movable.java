@@ -18,4 +18,25 @@ public abstract class Movable extends Element {
         super(type, position);
     }
 
+    public boolean moveUp(Level level) {
+        return move(new Point(0, -1), level);
+    }
+
+    public boolean moveRight(Level level) {
+        return move(new Point(1, 0), level);
+    }
+
+    public boolean moveDown(Level level) {
+        return move(new Point(0, 1), level);
+    }
+
+    public boolean moveLeft(Level level) {
+        return move(new Point(-1, 0), level);
+    }
+
+    private boolean move(Point delta, Level level) {
+        Point wanted = getPosition().sum(delta);
+        return Mover.move(this, wanted, level);
+    }
+
 }
