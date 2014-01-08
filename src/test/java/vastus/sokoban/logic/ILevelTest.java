@@ -20,22 +20,8 @@ public class ILevelTest {
         assertEquals(Element.STORAGE, at.getType());
         assertEquals(Element.FLOOR, level.getElementAt(new Point(3, 0)).getType());
         assertEquals(Element.BOX, level.getMovableAt(new Point(1, 0)).getType());
-        //assertEquals(Element.PLAYER, level.getElementAt(new Point(2, 0)).getType());
+        assertEquals(Element.PLAYER, level.getMovableAt(new Point(2, 0)).getType());
     }
-
-    /*
-    @Test
-    public void setElementShouldSetGivenElementsPositionToPointAtGivenElement()
-            throws Exception {
-        Level level = Level.build("@.O+");
-        Movable player = level.getPlayer();
-        Point newPos = new Point(1, 0);
-        assertEquals(Element.FLOOR, level.getElementAt(newPos).getType());
-        player.setPosition(newPos);
-        level.setElement(player);
-        assertEquals(Element.PLAYER, level.getElementAt(newPos).getType());
-    }
-    */
 
     @Test
     public void outOfBoundsShouldReturnTrueWhenGivenPointOutSide()
@@ -94,17 +80,6 @@ public class ILevelTest {
     public void getPlayerShouldThrowExceptionWhenNotFound() throws Exception {
         Level level = Level.build("+O..");
         level.getPlayer();
-    }
-
-    @Test
-    public void setMovableShouldSetTheKeyToGivenMovablesPosition() throws Exception {
-        Level level = Level.build("@.0+");
-        Movable player = level.getPlayer();
-        assertEquals(new Point(0, 0), player.getPosition());
-        player.setPosition(new Point(1, 0));
-        assertEquals(new Point(1, 0), player.getPosition());
-        level.setMovable(player);
-        assertEquals(player, level.getMovableAt(new Point(1, 0)));
     }
 
 }
