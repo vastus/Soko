@@ -101,4 +101,10 @@ public class ElementTest {
         Element.build('N', 0, 0);
     }
 
+    @Test
+    public void shouldPrintItself() throws Exception {
+        Element player = Element.build(Element.PLAYER, 0, 0);
+        assertEquals("@", player.toString());
+    }
+
 }
