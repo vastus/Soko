@@ -108,4 +108,9 @@ public abstract class Element {
         throw new Exception(String.format("Type %c not found.", type));
     }
 
+    @Override
+    public String toString() {
+        return String.format("%c", type);
+    }
+
 }
