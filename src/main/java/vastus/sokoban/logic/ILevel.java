@@ -24,13 +24,6 @@ public interface ILevel {
     Movable getMovableAt(Point position);
 
     /**
-     * Set movables key to given movables position.
-     * 
-     * @param movable movable to be set
-     */
-    void setMovable(Movable movable);
-
-    /**
      * Getter for player in level.
      *
      * @return player
