@@ -1,7 +1,7 @@
 package vastus.sokoban.logic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class describing a level of game.
@@ -24,12 +24,12 @@ public class Level implements ILevel {
     /**
      * Elements in level.
      */
-    private final Map<Point, Element> elements;
+    private List<Element> elems;
 
     /**
      * Movables in level.
      */
-    private final Map<Point, Movable> movables;
+    private List<Movable> movabs;
 
     /**
      * Dummy constructor for tests.
@@ -41,8 +41,6 @@ public class Level implements ILevel {
         checkDimensions(width, height);
         this.width = width;
         this.height = height;
-        this.elements = null;
-        this.movables = null;
     }
 
     /**
@@ -54,13 +52,14 @@ public class Level implements ILevel {
      * @param movables movables of level
      * @throws Exception 
      */
-    public Level(int width, int height, Map<Point, Element> elements, Map<Point, Movable> movables)
+
+    public Level(int width, int height, List<Element> elements, List<Movable> movables)
             throws Exception {
         checkDimensions(width, height);
         this.width = width;
         this.height = height;
-        this.elements = elements;
-        this.movables = movables;
+        this.elems = elements;
+        this.movabs = movables;
     }
 
     /**
@@ -86,8 +85,8 @@ public class Level implements ILevel {
      * 
      * @return elements
      */
-    public Map<Point, Element> getElements() {
-        return elements;
+    public List<Element> getElements() {
+        return elems;
     }
 
     /**
@@ -98,7 +97,12 @@ public class Level implements ILevel {
      */
     @Override
     public Element getElementAt(Point position) {
-        return elements.get(position);
+        for (Element element : elems) {
+            if (element.getPosition().equals(position))
+                return element;
+        }
+
+        return null;
     }
 
     /**
@@ -109,28 +113,23 @@ public class Level implements ILevel {
      */
     @Override
     public Movable getMovableAt(Point position) {
-        return movables.get(position);
+        for (Movable movable : movabs) {
+            if (movable.getPosition().equals(position))
+                return movable;
+        }
+
+        return null;
     }
 
     /**
-     * Set movables key by its position
-     * 
-     * @param movable movable to be set
-     */
-    @Override
-    public void setMovable(Movable movable) {
-        movables.put(movable.getPosition(), movable);
-    }
-
-    /**
-     * Getter for player in level (elements).
+     * Getter for player in level.
      *
      * @return found player
      * @throws Exception when player not found
      */
     @Override
     public Player getPlayer() throws Exception {
-        for (Movable movable : movables.values())
+        for (Movable movable : movabs)
             if (movable.getType() == Element.PLAYER)
                 return (Player) movable;
 
@@ -159,14 +158,14 @@ public class Level implements ILevel {
      * @return new level
      * @throws Exception 
      */
-    protected static Level build(String s) throws Exception {
+    public static Level build(String s) throws Exception {
         if (!s.contains("@"))
             throw new Exception("No player in string.");
 
         String[] rows = Level.buildRows(s);
-        Map<Point, Element> elements = Level.buildElements(rows);
-        Map<Point, Movable> movables = Level.buildMovables(rows);
-        return new Level(rows[0].length(), rows.length, elements, movables);
+        List<Element> elems = Level.buildElements(rows);
+        List<Movable> movabs = Level.buildMovables(rows);
+        return new Level(rows[0].length(), rows.length, elems, movabs);
     }
 
     /**
@@ -176,13 +175,13 @@ public class Level implements ILevel {
      * @return a map of elements
      * @throws Exception 
      */
-    public static Map<Point, Element> buildElements(String[] rows) throws Exception {
-        Map<Point, Element> elements = new HashMap<>();
+    public static List<Element> buildElements(String[] rows) throws Exception {
+        List<Element> elements = new ArrayList<>();
         for (int y = 0; y < rows.length; y++) {
             for (int x = 0; x < rows[0].length(); x++) {
                 char type = rows[y].charAt(x);
                 if (type == Element.FLOOR || type == Element.STORAGE || type == Element.WALL) {
-                    elements.put(new Point(x, y), Element.build(type, x, y));
+                    elements.add(Element.build(type, x, y));
                 }
             }
         }
@@ -190,13 +189,13 @@ public class Level implements ILevel {
         return elements;
     }
 
-    public static Map<Point, Movable> buildMovables(String[] rows) throws Exception {
-        Map<Point, Movable> movables = new HashMap<>();
+    public static List<Movable> buildMovables(String[] rows) throws Exception {
+        List<Movable> movables = new ArrayList<>();
         for (int y = 0; y < rows.length; y++) {
             for (int x = 0; x < rows[0].length(); x++) {
                 char type = rows[y].charAt(x);
                 if (type == Element.PLAYER || type == Element.BOX) {
-                    movables.put(new Point(x, y), (Movable) Element.build(type, x, y));
+                    movables.add((Movable) Element.build(type, x, y));
                 }
             }
         }
@@ -211,7 +210,7 @@ public class Level implements ILevel {
      * @return table of strings
      * @throws Exception 
      */
-    protected static String[] buildRows(String s) throws Exception {
+    public static String[] buildRows(String s) throws Exception {
         s = s.trim();
         if (s == null || s.length() < 3)
             throw new Exception("Level string is not valid.");
@@ -236,6 +235,24 @@ public class Level implements ILevel {
     private void checkDimensions(int width, int height) throws Exception {
         if ((width < 1 || height < 1) || (width < 3 && height < 3))
             throw new Exception("Width or height under required dimensions.");
+    }
+
+    @Override
+    public String toString() {
+        String lString = "";
+        String s;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Element e = getElementAt(new Point(x, y));
+                Movable m = getMovableAt(new Point(x, y));
+                if (m == null && e == null) s = ".";
+                else if (m != null) s = m.toString();
+                else s = e.toString();
+                lString += s;
+            }
+            lString += "\n";
+        }
+        return lString;
     }
 
 }
