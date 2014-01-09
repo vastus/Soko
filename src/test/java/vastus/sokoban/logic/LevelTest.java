@@ -252,7 +252,7 @@ public class LevelTest {
     }
 
     @Test
-    public void buildElementsAddsStorageToElementsListWhenGivenBoxStorage() 
+    public void buildElementsAddsStorageToElementsListWhenGivenBoxStorage()
             throws Exception {
         String[] rows = {"+O@", ".X."};
         List<Element> elements = Level.buildElements(rows);

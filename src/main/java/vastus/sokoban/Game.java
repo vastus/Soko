@@ -2,76 +2,72 @@ package vastus.sokoban;
 
 import vastus.sokoban.logic.Level;
 import vastus.sokoban.logic.Movable;
-import vastus.sokoban.logic.Point;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
 
-public class Game extends BasicGame {
+public class Game extends StateBasedGame {
 
     public Game() {
         super("Soko");
     }
 
     public static void main(String[] args) throws Exception {
-        /*
-        Level level = Level.buildAry("@.O.+..");
-        Movable player = level.getPlr();
-        Movable box = level.getMovable(new Point(2, 0));
+        //AppGameContainer container = new AppGameContainer(new Game(), 800, 600, false);
+        //container.start();
+        Level level = Level.build("@X..+\n#.#.O\n#....");
+        Movable player = level.getPlayer();
 
-        System.out.println(level);
-        System.out.println("P: " + player.getPosition());
-        System.out.println("B: " + box.getPosition());
-        System.out.println("----------------------\n");
+        System.out.print(level);
+        System.out.println("========");
 
-        moveRight(player, box, level);
-        moveRight(player, box, level);
-
-        moveLeft(player, box, level);
-
-        moveRight(player, box, level);
-        moveRight(player, box, level);
-
-        moveLeft(player, box, level);
-        moveLeft(player, box, level);
-        moveLeft(player, box, level);
-        moveLeft(player, box, level);
-        moveLeft(player, box, level);
-        moveLeft(player, box, level);
-        */
-
-        AppGameContainer container = new AppGameContainer(new Game(), 800, 600, false);
-        container.start();
-    }
-
-
-    @Override
-    public void init(GameContainer gc) throws SlickException {
-    }
-
-    @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-    }
-
-    @Override
-    public void update(GameContainer gc, int i) throws SlickException {
-    }
-
-    private static void moveLeft(Movable player, Movable box, Level level) {
-        System.out.println("Move left");
-        player.moveLeft(level);
-        System.out.println(level);
-        System.out.println("P: " + player.getPosition());
-        System.out.println("B: " + box.getPosition());
-        System.out.println("----------------------\n");
-    }
-
-    private static void moveRight(Movable player, Movable box, Level level) {
-        System.out.println("Move right");
         player.moveRight(level);
-        System.out.println(level);
-        System.out.println("P: " + player.getPosition());
-        System.out.println("B: " + box.getPosition());
-        System.out.println("----------------------\n");
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveDown(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveDown(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveRight(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveRight(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveRight(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveUp(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveLeft(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveUp(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        player.moveLeft(level);
+        System.out.print(level);
+        System.out.println("========");
+
+        System.out.println("LEVEL COMPLETED!");
+    }
+
+    @Override
+    public void initStatesList(GameContainer gc) throws SlickException {
+        this.addState(new GamePlay(GameStates.PLAY));
+        this.addState(new GameMenu(GameStates.MENU));
     }
 
 }
