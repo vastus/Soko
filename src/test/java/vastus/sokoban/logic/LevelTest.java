@@ -252,6 +252,29 @@ public class LevelTest {
     }
 
     @Test
+    public void buildElementsAddsStorageToElementsListWhenGivenBoxStorage() 
+            throws Exception {
+        String[] rows = {"+O@", ".X."};
+        List<Element> elements = Level.buildElements(rows);
+        assertEquals(4, elements.size());
+        assertEquals(Element.STORAGE, elements.get(0).getType());
+        assertEquals(Element.FLOOR, elements.get(1).getType());
+        assertEquals(Element.STORAGE, elements.get(2).getType());
+        assertEquals(Element.FLOOR, elements.get(3).getType());
+    }
+
+    @Test
+    public void buildMovablesAddsBoxToMovablesListWhenGivenBoxStorage()
+            throws Exception {
+        String[] rows = {"+O@", ".X."};
+        List<Movable> movables = Level.buildMovables(rows);
+        assertEquals(3, movables.size());
+        assertEquals(Element.BOX, movables.get(0).getType());
+        assertEquals(Element.PLAYER, movables.get(1).getType());
+        assertEquals(Element.BOX, movables.get(2).getType());
+    }
+
+    @Test
     public void buildElementsReturnsMatchingListByTable2() throws Exception {
         String[] rows = {"++", "OO", "@."};
         List<Element> elements = Level.buildElements(rows);

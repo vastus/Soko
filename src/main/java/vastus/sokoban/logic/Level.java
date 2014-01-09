@@ -182,6 +182,8 @@ public class Level implements ILevel {
                 char type = rows[y].charAt(x);
                 if (type == Element.FLOOR || type == Element.STORAGE || type == Element.WALL) {
                     elements.add(Element.build(type, x, y));
+                } else if (type == Element.BOX_STORAGE) {
+                    elements.add(Element.build(Element.STORAGE, x, y));
                 }
             }
         }
@@ -196,6 +198,8 @@ public class Level implements ILevel {
                 char type = rows[y].charAt(x);
                 if (type == Element.PLAYER || type == Element.BOX) {
                     movables.add((Movable) Element.build(type, x, y));
+                } else if (type == Element.BOX_STORAGE) {
+                    movables.add((Movable) Element.build(Element.BOX, x, y));
                 }
             }
         }
@@ -245,9 +249,15 @@ public class Level implements ILevel {
             for (int x = 0; x < width; x++) {
                 Element e = getElementAt(new Point(x, y));
                 Movable m = getMovableAt(new Point(x, y));
-                if (m == null && e == null) s = ".";
-                else if (m != null) s = m.toString();
-                else s = e.toString();
+                if (m == null && e == null) {
+                    s = ".";
+                } else if (m != null && e != null && m.getType() == Element.BOX && e.getType() == Element.STORAGE) {
+                    s = "X";
+                } else if (m != null) {
+                    s = m.toString();
+                } else {
+                    s = e.toString();
+                }
                 lString += s;
             }
             lString += "\n";
