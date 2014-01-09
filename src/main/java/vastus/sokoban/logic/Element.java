@@ -24,6 +24,11 @@ public abstract class Element {
     public static final char STORAGE = '+';
 
     /**
+     * Character type of box on storage.
+     */
+    public static final char BOX_STORAGE = 'X';
+
+    /**
      * Character type of wall.
      */
     public static final char WALL = '#';

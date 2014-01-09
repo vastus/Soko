@@ -21,6 +21,7 @@ public class ElementTest {
         assertEquals('+', Element.STORAGE);
         assertEquals('#', Element.WALL);
         assertEquals('.', Element.FLOOR);
+        assertEquals('X', Element.BOX_STORAGE);
     }
 
     @Test
