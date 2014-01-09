@@ -68,6 +68,17 @@ public class ElementTest {
     }
 
     @Test
+    public void buildShouldReturnNewBoxStorageWithGivenTypeAndPosition()
+            throws Exception {
+        int x = 0, y = 0;
+        Point position = new Point(x, y);
+        Element element = Element.build('X', x, y);
+        assertNotNull(element);
+        assertEquals(Element.BOX_STORAGE, element.getType());
+        assertEquals(position, element.getPosition());
+    }
+
+    @Test
     public void buildShouldReturnNewStorageWithGivenTypeAndPosition() throws Exception {
         int x = 0, y = 0;
         Point position = new Point(x, y);
@@ -106,6 +117,8 @@ public class ElementTest {
     public void shouldPrintItself() throws Exception {
         Element player = Element.build(Element.PLAYER, 0, 0);
         assertEquals("@", player.toString());
+        Element boxStorage = Element.build(Element.BOX_STORAGE, 0, 0);
+        assertEquals("X", boxStorage.toString());
     }
 
 }

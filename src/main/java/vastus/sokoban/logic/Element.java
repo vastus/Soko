@@ -108,6 +108,8 @@ public abstract class Element {
             return new Wall(position);
         case Element.FLOOR:
             return new Floor(position);
+        case Element.BOX_STORAGE:
+            return new Box(position, true);
         }
 
         throw new Exception(String.format("Type %c not found.", type));
@@ -119,3 +121,4 @@ public abstract class Element {
     }
 
 }
+
