@@ -29,6 +29,14 @@ public class Mover {
             return false;
         }
 
+        if (movable.getType() == Element.BOX && elementAt.getType() == Element.STORAGE) {
+            Box box = (Box) movable;
+            box.setStorage(true);
+        } else if (movable.getType() == Element.BOX && elementAt.getType() != Element.STORAGE) {
+            Box box = (Box) movable;
+            box.setStorage(false);
+        }
+
         Movable movableAt = level.getMovableAt(to);
         if (movableAt != null && movableAt.getType() == Element.BOX && movable.getType() == Element.PLAYER) {
             Point boxPos = movableAt.getPosition();

@@ -265,4 +265,43 @@ public class MoverTest {
         assertNull(level.getMovableAt(new Point(1, 0)));
     }
 
+    @Test
+    public void boxShouldKnowWhenItIsMovedOnStorage() throws Exception {
+        Level level = Level.build("@O+");
+        Movable player = level.getPlayer();
+        Box box = (Box) level.getMovableAt(new Point(1, 0));
+        assertFalse(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertEquals(new Point(2, 0), box.getPosition());
+        assertTrue(box.isOnStorage());
+    }
+
+    @Test
+    public void boxShouldKnowWhenItIsMovedOffStorage() throws Exception {
+        Level level = Level.build("@O+.");
+        Movable player = level.getPlayer();
+        Box box = (Box) level.getMovableAt(new Point(1, 0));
+        assertFalse(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertTrue(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertEquals(new Point(3, 0), box.getPosition());
+        assertFalse(box.isOnStorage());
+    }
+
+    @Test
+    public void boxShouldKnowWhenItIsMovedOffAndOnStorage() throws Exception {
+        Level level = Level.build("@O+.+O");
+        Movable player = level.getPlayer();
+        Box box = (Box) level.getMovableAt(new Point(1, 0));
+        assertFalse(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertTrue(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertFalse(box.isOnStorage());
+        assertTrue(player.moveRight(level));
+        assertEquals(new Point(4, 0), box.getPosition());
+        assertTrue(box.isOnStorage());
+    }
+
 }
