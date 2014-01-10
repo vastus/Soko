@@ -1,5 +1,7 @@
 package vastus.sokoban.logic;
 
+import org.newdawn.slick.Graphics;
+
 /**
  * Class describing floor element.
  * 
@@ -15,5 +17,7 @@ public class Floor extends Element {
     public Floor(Point position) {
         super(Element.FLOOR, position);
     }
+
+    public void draw(Graphics g) {}
 
 }

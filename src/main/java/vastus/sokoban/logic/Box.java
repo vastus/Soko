@@ -1,5 +1,10 @@
 package vastus.sokoban.logic;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+
 /**
  * Class describing movable box element.
  * 
@@ -40,6 +45,15 @@ public class Box extends Movable {
      */
     public boolean isOnStorage() {
         return onStorage;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Shape box = new Rectangle(getX() * SIZE, getY() * SIZE, SIZE, SIZE);
+        g.setColor(new Color(204, 159, 97));
+        g.fill(box);
+        g.setColor(new Color(224, 180, 110));
+        g.draw(box);
     }
 
 }
