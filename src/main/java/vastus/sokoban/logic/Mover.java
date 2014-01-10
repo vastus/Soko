@@ -38,6 +38,9 @@ public class Mover {
         }
 
         Movable movableAt = level.getMovableAt(to);
+        if (movableAt != null && movable.getType() == Element.BOX && movableAt.getType() == Element.BOX)
+            return false;
+
         if (movableAt != null && movableAt.getType() == Element.BOX && movable.getType() == Element.PLAYER) {
             Point boxPos = movableAt.getPosition();
             Point playerPos = movable.getPosition();
