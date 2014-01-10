@@ -18,7 +18,9 @@ static (by default) or movable.
 
 Initial class diagram of the game design.
 
-## Dependencies
+## Building in NetBeans
+
+Run the following commands in the root of the repository.
 
 ```
 mvn install:install-file -DlocalRepositoryPath=repo -DcreateChecksum=true -Dpackaging=jar -Dfile=lib/lwjgl/lwjgl.jar -DgeneratePom=true -DgroupId=org.lwjgl.lwjgl -DartifactId=lwjgl -Dversion=2.9.1
@@ -26,5 +28,13 @@ mvn install:install-file -DlocalRepositoryPath=repo -DcreateChecksum=true -Dpack
 
 ```
 mvn install:install-file -Dfile=lib/slick2d/slick.jar -DgroupId=org.newdawn.slick -DartifactId=slick -Dversion=0.3 -Dpackaging=jar -DgeneratePom=true
+```
+
+Change the 'Project Properties' (in NetBeans) 'Run' property's 'VM Options'
+java.library.path to point to lwjgl's native lib folder. For example on Linux this would be:
+
+
+```
+-Djava.library.path="/path/to/repo/Soko/lib/lwjgl/native/linux" 
 ```
 
