@@ -24,12 +24,12 @@ public class Level implements ILevel {
     /**
      * Elements in level.
      */
-    private List<Element> elems;
+    private List<Element> elements;
 
     /**
      * Movables in level.
      */
-    private List<Movable> movabs;
+    private List<Movable> movables;
 
     /**
      * Dummy constructor for tests.
@@ -58,8 +58,8 @@ public class Level implements ILevel {
         checkDimensions(width, height);
         this.width = width;
         this.height = height;
-        this.elems = elements;
-        this.movabs = movables;
+        this.elements = elements;
+        this.movables = movables;
     }
 
     /**
@@ -86,7 +86,16 @@ public class Level implements ILevel {
      * @return elements
      */
     public List<Element> getElements() {
-        return elems;
+        return elements;
+    }
+
+    /**
+     * Getter for movables in level.
+     *
+     * @return elements
+     */
+    public List<Movable> getMovables() {
+        return movables;
     }
 
     /**
@@ -97,7 +106,7 @@ public class Level implements ILevel {
      */
     @Override
     public Element getElementAt(Point position) {
-        for (Element element : elems) {
+        for (Element element : elements) {
             if (element.getPosition().equals(position))
                 return element;
         }
@@ -113,7 +122,7 @@ public class Level implements ILevel {
      */
     @Override
     public Movable getMovableAt(Point position) {
-        for (Movable movable : movabs) {
+        for (Movable movable : movables) {
             if (movable.getPosition().equals(position))
                 return movable;
         }
@@ -129,7 +138,7 @@ public class Level implements ILevel {
      */
     @Override
     public Player getPlayer() throws Exception {
-        for (Movable movable : movabs)
+        for (Movable movable : movables)
             if (movable.getType() == Element.PLAYER)
                 return (Player) movable;
 
@@ -172,7 +181,7 @@ public class Level implements ILevel {
      * Builds elements from given table of strings.
      * 
      * @param rows table of strings constructed from level string
-     * @return a map of elements
+     * @return a list of elements
      * @throws Exception 
      */
     public static List<Element> buildElements(String[] rows) throws Exception {
@@ -191,6 +200,13 @@ public class Level implements ILevel {
         return elements;
     }
 
+    /**
+     * Builds movables from given table of strings.
+     *
+     * @param rows table of strings constructed from level string
+     * @return a list of movables
+     * @throws Exception
+     */
     public static List<Movable> buildMovables(String[] rows) throws Exception {
         List<Movable> movables = new ArrayList<>();
         for (int y = 0; y < rows.length; y++) {
