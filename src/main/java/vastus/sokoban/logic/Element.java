@@ -1,5 +1,7 @@
 package vastus.sokoban.logic;
 
+import org.newdawn.slick.Graphics;
+
 /**
  * Abstract class describing elements in game.
  * Element can be a player, box, storage or wall.
@@ -7,6 +9,11 @@ package vastus.sokoban.logic;
  * @author Juho Hautala
  */
 public abstract class Element {
+
+    /**
+     * Size of an element.
+     */
+    public static final int SIZE = 32;
 
     /**
      * Character type of player.
@@ -87,6 +94,22 @@ public abstract class Element {
     }
 
     /**
+     * Getter for x-coordinate.
+     * @return current x-coordinate
+     */
+    public int getX() {
+        return position.getX();
+    }
+
+    /**
+     * Getter for y-coordinate.
+     * @return current y-coordinate
+     */
+    public int getY() {
+        return position.getY();
+    }
+
+    /**
      * Builds an element from given type and x and y-value.
      * 
      * @param type elements type
@@ -114,6 +137,8 @@ public abstract class Element {
 
         throw new Exception(String.format("Type %c not found.", type));
     }
+
+    public abstract void draw(Graphics g);
 
     @Override
     public String toString() {
