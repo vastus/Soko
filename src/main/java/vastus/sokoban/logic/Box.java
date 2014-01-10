@@ -47,6 +47,15 @@ public class Box extends Movable {
         return onStorage;
     }
 
+    /**
+     * Setter for onStorage.
+     *
+     * @param storage
+     */
+    public void setStorage(boolean storage) {
+        this.onStorage = storage;
+    }
+
     @Override
     public void draw(Graphics g) {
         Shape box = new Rectangle(getX() * SIZE, getY() * SIZE, SIZE, SIZE);
