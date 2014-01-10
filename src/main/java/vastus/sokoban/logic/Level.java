@@ -247,10 +247,30 @@ public class Level implements ILevel {
     }
 
     /**
+     * Tells if level is completed (all boxes on storage).
+     *
+     * @return true if all boxes on storage - false otherwise
+     * @throws Exception
+     */
+    public boolean isCompleted() throws Exception {
+        Movable player = getPlayer();
+        List<Movable> boxes = new ArrayList<>(movables);
+        boxes.remove(player);
+        for (Movable movable : boxes) {
+            Box box = (Box) movable;
+            if (!box.isOnStorage())
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Checks that dimensions are GTE 3.
      * 
      * @param width given width to constructor
      * @param height given height to constructor
+     * @throws Exception
      */
     private void checkDimensions(int width, int height) throws Exception {
         if ((width < 1 || height < 1) || (width < 3 && height < 3))

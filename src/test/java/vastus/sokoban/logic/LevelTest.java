@@ -303,4 +303,40 @@ public class LevelTest {
         assertEquals(1, level.getElements().size());
     }
 
+    @Test
+    public void shouldKnowIfLevelIsCompleted() throws Exception {
+        Level level = Level.build("+O@");
+        assertFalse(level.isCompleted());
+        Movable player = level.getPlayer();
+        player.moveLeft(level);
+        assertTrue(level.isCompleted());
+    }
+
+    @Test
+    public void shouldKnowIfLevelIsCompleted2() throws Exception {
+        Level level = Level.build("@X..+\n#.#.O\n#....");
+        assertFalse(level.isCompleted());
+        Movable player = level.getPlayer();
+        player.moveRight(level);
+        assertFalse(level.isCompleted());
+        player.moveDown(level);
+        assertFalse(level.isCompleted());
+        player.moveDown(level);
+        assertFalse(level.isCompleted());
+        player.moveRight(level);
+        assertFalse(level.isCompleted());
+        player.moveRight(level);
+        assertFalse(level.isCompleted());
+        player.moveRight(level);
+        assertFalse(level.isCompleted());
+        player.moveUp(level);
+        assertFalse(level.isCompleted());
+        player.moveLeft(level);
+        assertFalse(level.isCompleted());
+        player.moveUp(level);
+        assertFalse(level.isCompleted());
+        player.moveLeft(level);
+        assertTrue(level.isCompleted());
+    }
+
 }
