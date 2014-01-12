@@ -18,8 +18,13 @@ static (by default) or movable.
 
 Initial class diagram of the game design.
 
-## Building in NetBeans
+## Running the Game
+Go to project root where the Soko.jar file is located and run the jar file.
+```
+java -jar Soko.jar
+```
 
+## Building in NetBeans
 Run the following commands in the root of the repository.
 
 ```
