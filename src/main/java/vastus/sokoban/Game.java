@@ -61,8 +61,10 @@ public class Game extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        this.addState(new GamePlay(GameStates.PLAY));
         this.addState(new GameMenu(GameStates.MENU));
+        this.addState(new GamePlay(GameStates.PLAY));
+        this.addState(new GameGoal(GameStates.GOAL));
+        this.addState(new GameCredits(GameStates.CREDITS));
     }
 
     private static void up(Movable player, Level level) {
