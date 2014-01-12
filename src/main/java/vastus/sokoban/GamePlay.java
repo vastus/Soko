@@ -10,6 +10,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import vastus.sokoban.logic.Element;
 import vastus.sokoban.logic.Level;
 import vastus.sokoban.logic.Movable;
@@ -27,8 +29,9 @@ public class GamePlay extends BasicGameState {
         this.state = state;
     }
 
+
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+    public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
         File lvlFile = new File("src/main/resources/levels/1.lvl");
         try {
             String lvlString = Helpers.readFileToString(lvlFile);
@@ -42,13 +45,18 @@ public class GamePlay extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
+        if (container.getInput().isKeyPressed(Input.KEY_R)) {
+            init(container, sbg);
+        } else if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            sbg.enterState(GameStates.MENU.ordinal(), new FadeOutTransition(), new FadeInTransition());
+        }
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame sbg, Graphics g) throws SlickException {
         drawElements(g, level.getElements());
         drawMovables(g, level.getMovables());
-        drawMoves(g);
+        drawInfo(g);
         checkLevelIsComplete(g);
     }
 
@@ -88,6 +96,11 @@ public class GamePlay extends BasicGameState {
     }
 
     private void move(String direction) {
+        try {
+            if (level.isCompleted())
+                return;
+        } catch (Exception e) {}
+
         switch (direction) {
             case "up":
                 if (player.moveUp(level)) moves++;
@@ -104,14 +117,16 @@ public class GamePlay extends BasicGameState {
         }
     }
 
-    private void drawMoves(Graphics g) {
+    private void drawInfo(Graphics g) {
         g.setColor(new Color(220, 220, 220));
-        g.drawString(String.format("Moves: %d", moves), 290, 8);
+        g.drawString("Menu - [Esc]", 290, 8);
+        g.drawString("Reset - [R]", 290, 40);
+        g.drawString(String.format("Moves: %d", moves), 290, 72);
     }
 
     private void finished(Graphics g) {
         g.setColor(new Color(220, 220, 220));
-        g.drawString("Level completed!", 290, 40);
+        g.drawString("Level completed!", 290, 102);
     }
 
     private void checkLevelIsComplete(Graphics g) {
