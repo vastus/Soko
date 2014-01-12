@@ -4,6 +4,12 @@
 
 Source: [wikipedia/Sokoban](http://en.wikipedia.org/wiki/Sokoban).
 
+## Running the Game
+Go to project root where the Soko.jar file is located and run the jar file.
+```
+java -jar Soko.jar
+```
+
 ## Testing
 Test coverage has been generated using [Cobertura](http://cobertura.github.io/cobertura/)
 and mutation test reports by [PIT](http://pitest.org/). These can be found in the documentation
@@ -17,12 +23,6 @@ static (by default) or movable.
 [![Sokoban UML Class Diagram](http://www.yuml.me/34c0ff36)](http://www.yuml.me/edit/34c0ff36)
 
 Initial class diagram of the game design.
-
-## Running the Game
-Go to project root where the Soko.jar file is located and run the jar file.
-```
-java -jar Soko.jar
-```
 
 ## Building in NetBeans
 Run the following commands in the root of the repository.
