@@ -7,6 +7,8 @@ package vastus.sokoban;
 public enum GameStates {
 
     MENU,
-    PLAY;
+    PLAY,
+    GOAL,
+    CREDITS;
     
 }
