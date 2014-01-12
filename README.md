@@ -27,7 +27,7 @@ mvn install:install-file -DlocalRepositoryPath=repo -DcreateChecksum=true -Dpack
 ```
 
 ```
-mvn install:install-file -Dfile=lib/slick2d/slick.jar -DgroupId=org.newdawn.slick -DartifactId=slick -Dversion=0.3 -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DlocalRepositoryPath=repo -Dfile=lib/slick2d/slick.jar -DgroupId=org.newdawn.slick -DartifactId=slick -Dversion=0.3 -Dpackaging=jar -DgeneratePom=true
 ```
 
 Change the 'Project Properties' (in NetBeans) 'Run' property's 'VM Options'
